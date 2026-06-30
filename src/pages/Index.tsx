@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 const ANIME_ART = 'https://cdn.poehali.dev/projects/a5636f52-1afb-4e11-a672-22eb126baf64/files/d39b06c6-1b2a-4244-b2af-e87e488b6e0c.jpg';
@@ -8,7 +8,15 @@ interface Track {
   title: string;
   artist: string;
   duration: string;
+  url: string;
 }
+
+const fmtTime = (s: number) => {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+};
 
 interface Playlist {
   id: number;
@@ -21,19 +29,19 @@ const initialPlaylists: Playlist[] = [
     id: 1,
     name: 'NEON NIGHTS',
     tracks: [
-      { id: 1, title: 'Tokyo Rain', artist: 'Synth Dreamer', duration: '3:24' },
-      { id: 2, title: 'Neon Pulse', artist: 'Lo-Fi Ghost', duration: '2:58' },
-      { id: 3, title: 'Cyber Lullaby', artist: 'Midnight Coder', duration: '4:12' },
-      { id: 4, title: 'Hologram Heart', artist: 'Void Wave', duration: '3:45' },
+      { id: 1, title: 'Lofi Study', artist: 'FASSounds', duration: '2:09', url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3' },
+      { id: 2, title: 'Good Night', artist: 'FASSounds', duration: '2:31', url: 'https://cdn.pixabay.com/audio/2023/07/30/audio_e0908e8569.mp3' },
+      { id: 3, title: 'Lofi Chill', artist: 'BoDleasonsMusic', duration: '2:00', url: 'https://cdn.pixabay.com/audio/2024/11/04/audio_1d2b1cd3d2.mp3' },
+      { id: 4, title: 'Coffee Lofi', artist: 'Music_Unlimited', duration: '2:38', url: 'https://cdn.pixabay.com/audio/2023/09/05/audio_a89e62b8f0.mp3' },
     ],
   },
   {
     id: 2,
     name: 'CHILL SECTOR',
     tracks: [
-      { id: 5, title: 'Rooftop 2099', artist: 'Static Bloom', duration: '3:10' },
-      { id: 6, title: 'Soft Glitch', artist: 'Neo Kyoto', duration: '2:40' },
-      { id: 7, title: 'Rainy Server', artist: 'Data Stream', duration: '3:55' },
+      { id: 5, title: 'Lofi Background', artist: 'Coma-Media', duration: '2:38', url: 'https://cdn.pixabay.com/audio/2023/06/11/audio_8ae8e9b2c0.mp3' },
+      { id: 6, title: 'Rainy Lofi City', artist: 'BoDleasonsMusic', duration: '4:11', url: 'https://cdn.pixabay.com/audio/2023/04/13/audio_c610232c4e.mp3' },
+      { id: 7, title: 'Chill Lofi', artist: 'Music_For_Videos', duration: '2:10', url: 'https://cdn.pixabay.com/audio/2024/02/21/audio_e4d3a09b3a.mp3' },
     ],
   },
 ];
@@ -47,22 +55,58 @@ const Index = () => {
   const [volume, setVolume] = useState(70);
   const [creatingPlaylist, setCreatingPlaylist] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState('');
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const activePlaylist = playlists.find((p) => p.id === activePlaylistId)!;
   const currentTrack = activePlaylist.tracks[currentTrackIndex];
 
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume / 100;
+  }, [volume]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !currentTrack) return;
+    if (isPlaying) {
+      audio.play().catch(() => setIsPlaying(false));
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying, currentTrackIndex, activePlaylistId]);
+
+  const onTimeUpdate = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setCurrentTime(audio.currentTime);
+    setProgress(audio.duration ? (audio.currentTime / audio.duration) * 100 : 0);
+  };
+
+  const seek = (pct: number) => {
+    const audio = audioRef.current;
+    if (audio && audio.duration) {
+      audio.currentTime = (pct / 100) * audio.duration;
+      setProgress(pct);
+    }
+  };
+
   const handleNext = () => {
     setCurrentTrackIndex((i) => (i + 1) % activePlaylist.tracks.length);
     setProgress(0);
+    setCurrentTime(0);
   };
   const handlePrev = () => {
     setCurrentTrackIndex((i) => (i - 1 + activePlaylist.tracks.length) % activePlaylist.tracks.length);
     setProgress(0);
+    setCurrentTime(0);
   };
   const selectPlaylist = (id: number) => {
     setActivePlaylistId(id);
     setCurrentTrackIndex(0);
     setProgress(0);
+    setCurrentTime(0);
   };
   const addPlaylist = () => {
     if (!newPlaylistName.trim()) return;
@@ -75,6 +119,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen cyber-grid relative overflow-hidden">
+      <audio
+        ref={audioRef}
+        src={currentTrack?.url}
+        onTimeUpdate={onTimeUpdate}
+        onLoadedMetadata={(e) => setDuration((e.target as HTMLAudioElement).duration)}
+        onEnded={handleNext}
+      />
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-neon-pink/20 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-neon-cyan/20 rounded-full blur-[150px] pointer-events-none" />
 
@@ -130,11 +181,15 @@ const Index = () => {
             <div className="mb-6">
               <div className="h-1.5 rounded-full bg-foreground/10 cursor-pointer" onClick={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
-                setProgress(Math.round(((e.clientX - r.left) / r.width) * 100));
+                seek(Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100)));
               }}>
                 <div className="h-full rounded-full bg-gradient-to-r from-neon-pink to-neon-cyan relative" style={{ width: `${progress}%` }}>
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white neon-border-cyan" />
                 </div>
+              </div>
+              <div className="flex justify-between mt-2 text-xs text-foreground/40 font-display">
+                <span>{fmtTime(currentTime)}</span>
+                <span>{fmtTime(duration)}</span>
               </div>
             </div>
 
