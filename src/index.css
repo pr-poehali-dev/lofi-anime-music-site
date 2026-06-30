@@ -4,8 +4,12 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --neon-pink: 320 100% 60%;
+    --neon-cyan: 185 100% 55%;
+    --neon-purple: 270 90% 60%;
+
+    --background: 240 30% 6%;
+    --foreground: 0 0% 98%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -96,6 +100,40 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+@layer utilities {
+  .neon-text-pink {
+    text-shadow:
+      0 0 8px hsl(var(--neon-pink)),
+      0 0 20px hsl(var(--neon-pink) / 0.6);
+  }
+  .neon-text-cyan {
+    text-shadow:
+      0 0 8px hsl(var(--neon-cyan)),
+      0 0 20px hsl(var(--neon-cyan) / 0.6);
+  }
+  .neon-border-pink {
+    box-shadow:
+      0 0 12px hsl(var(--neon-pink) / 0.7),
+      inset 0 0 8px hsl(var(--neon-pink) / 0.3);
+  }
+  .neon-border-cyan {
+    box-shadow:
+      0 0 12px hsl(var(--neon-cyan) / 0.7),
+      inset 0 0 8px hsl(var(--neon-cyan) / 0.3);
+  }
+  .cyber-grid {
+    background-image:
+      linear-gradient(hsl(var(--neon-cyan) / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--neon-cyan) / 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .glass {
+    background: hsl(240 30% 10% / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--neon-cyan) / 0.2);
   }
 }
