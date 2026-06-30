@@ -11,31 +11,32 @@ const fmtTime = (s: number) => {
   return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 };
 
-// Треки — Internet Archive, точные имена файлов (Public Domain / CC0)
-const IA = 'https://archive.org/download';
+// Kevin MacLeod — incompetech.com (CC BY 4.0, royalty-free)
+const KM = 'https://incompetech.com/music/royalty-free/mp3-royaltyfree';
+// Centz — archive.org/DWK312 (confirmed file exists)
+const IA = 'https://archive.org/download/DWK312';
+
 const ALL_TRACKS: Track[] = [
-  // DWK312 — Centz "Lo-Fi Library" (Dusted Wax Kingdom, free download)
-  { id: 1,  title: 'Bonjour',              artist: 'Centz', url: `${IA}/DWK312/Centz_-_01_-_Bonjour.mp3` },
-  { id: 2,  title: 'Mask Collection',      artist: 'Centz', url: `${IA}/DWK312/Centz_-_02_-_Mask_Collection.mp3` },
-  { id: 3,  title: 'London Underground',   artist: 'Centz', url: `${IA}/DWK312/Centz_-_03_-_The_London_Underground.mp3` },
-  { id: 4,  title: 'Go Home With You',     artist: 'Centz', url: `${IA}/DWK312/Centz_-_04_-_Go_Home_With_You.mp3` },
-  { id: 5,  title: 'Submarine Air-Force',  artist: 'Centz', url: `${IA}/DWK312/Centz_-_05_-_Submarine_Air-Force.mp3` },
-  { id: 6,  title: '1990',                 artist: 'Centz', url: `${IA}/DWK312/Centz_-_06_-_1990.mp3` },
-  { id: 7,  title: 'Samurai Disco',        artist: 'Centz', url: `${IA}/DWK312/Centz_-_07_-_Samurai_Disco.mp3` },
-  { id: 8,  title: 'She Left',             artist: 'Centz', url: `${IA}/DWK312/Centz_-_08_-_She_Left.mp3` },
-  { id: 9,  title: 'Rains',                artist: 'Centz', url: `${IA}/DWK312/Centz_-_09_-_Rains.mp3` },
-  { id: 10, title: 'Midnight Rider',       artist: 'Centz', url: `${IA}/DWK312/Centz_-_10_-_Midnight_Rider.mp3` },
-  { id: 11, title: 'Balcony',              artist: 'Centz', url: `${IA}/DWK312/Centz_-_11_-_Balcony.mp3` },
-  { id: 12, title: 'Last Train',           artist: 'Centz', url: `${IA}/DWK312/Centz_-_12_-_Last_Train.mp3` },
-  { id: 13, title: 'Afterwork',            artist: 'Centz', url: `${IA}/DWK312/Centz_-_13_-_Afterwork.mp3` },
-  { id: 14, title: 'Neon Noir',            artist: 'Centz', url: `${IA}/DWK312/Centz_-_14_-_Neon_Noir.mp3` },
-  // kalaido-hanging-lanterns_202101 — Free Lofi compilation
-  { id: 15, title: 'Lo-Fi Type Beat Rain', artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/%28FREE%29%20Lo-fi%20Type%20Beat%20-%20Rain.mp3` },
-  { id: 16, title: 'Deep Space',           artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/deep%20space%20-%20Ambient%20Lofi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
-  { id: 17, title: 'Defective',            artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/defective%20-%20LofiTrap%20Style%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
-  { id: 18, title: 'Finite',              artist: 'Free Beat',   url: `${IA}/kalaido-hanging-lanterns_202101/finite%20-%20Lofi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
-  { id: 19, title: 'Tranquillity',         artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/Tranquillity%20-%20Chill%20Lofi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
-  { id: 20, title: 'Rainy Night',          artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/rainy%20night%20-%20Lo-fi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
+  { id: 1,  title: 'Backed Vibes Clean',   artist: 'Kevin MacLeod', url: `${KM}/Backed%20Vibes%20Clean.mp3` },
+  { id: 2,  title: 'Chill Wave',           artist: 'Kevin MacLeod', url: `${KM}/Chill%20Wave.mp3` },
+  { id: 3,  title: 'Cipher',               artist: 'Kevin MacLeod', url: `${KM}/Cipher.mp3` },
+  { id: 4,  title: 'Club Dub',             artist: 'Kevin MacLeod', url: `${KM}/Club%20Dub.mp3` },
+  { id: 5,  title: 'Comfortable Mystery',  artist: 'Kevin MacLeod', url: `${KM}/Comfortable%20Mystery.mp3` },
+  { id: 6,  title: 'Cool Vibes',           artist: 'Kevin MacLeod', url: `${KM}/Cool%20Vibes.mp3` },
+  { id: 7,  title: 'Dream Culture',        artist: 'Kevin MacLeod', url: `${KM}/Dream%20Culture.mp3` },
+  { id: 8,  title: 'Dub Zap',             artist: 'Kevin MacLeod', url: `${KM}/Dub%20Zap.mp3` },
+  { id: 9,  title: 'Easy Lemon',           artist: 'Kevin MacLeod', url: `${KM}/Easy%20Lemon.mp3` },
+  { id: 10, title: 'Funky Chunk',          artist: 'Kevin MacLeod', url: `${KM}/Funky%20Chunk.mp3` },
+  { id: 11, title: 'Hackbeat',             artist: 'Kevin MacLeod', url: `${KM}/Hackbeat.mp3` },
+  { id: 12, title: 'Hip Hop Background',   artist: 'Kevin MacLeod', url: `${KM}/Hip%20Hop%20Background.mp3` },
+  { id: 13, title: 'Investigations',       artist: 'Kevin MacLeod', url: `${KM}/Investigations.mp3` },
+  { id: 14, title: 'Jazzy Frenchy',        artist: 'Kevin MacLeod', url: `${KM}/Jazzy%20Frenchy.mp3` },
+  { id: 15, title: 'Mining by Moonlight',  artist: 'Kevin MacLeod', url: `${KM}/Mining%20by%20Moonlight.mp3` },
+  { id: 16, title: 'Neon Racing',          artist: 'Kevin MacLeod', url: `${KM}/Neon%20Racing.mp3` },
+  { id: 17, title: 'Rollin at 5',          artist: 'Kevin MacLeod', url: `${KM}/Rollin%20at%205.mp3` },
+  { id: 18, title: 'Bonjour',              artist: 'Centz',         url: `${IA}/Centz_-_01_-_Bonjour.mp3` },
+  { id: 19, title: 'Funky Element',        artist: 'Kevin MacLeod', url: `${KM}/Funky%20Element.mp3` },
+  { id: 20, title: 'Sneaky Snitch',        artist: 'Kevin MacLeod', url: `${KM}/Sneaky%20Snitch.mp3` },
 ];
 
 const initialPlaylists: Playlist[] = [
