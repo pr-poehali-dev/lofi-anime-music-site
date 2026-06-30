@@ -11,27 +11,31 @@ const fmtTime = (s: number) => {
   return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 };
 
+// Треки — Internet Archive, точные имена файлов (Public Domain / CC0)
+const IA = 'https://archive.org/download';
 const ALL_TRACKS: Track[] = [
-  { id: 1,  title: 'Lofi Study',       artist: 'FASSounds',       url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3' },
-  { id: 2,  title: 'Good Night Lofi',  artist: 'FASSounds',       url: 'https://cdn.pixabay.com/audio/2023/07/30/audio_e0908e8569.mp3' },
-  { id: 3,  title: 'Lofi Chill Vibes', artist: 'BoDleasons',      url: 'https://cdn.pixabay.com/audio/2024/11/04/audio_1d2b1cd3d2.mp3' },
-  { id: 4,  title: 'Coffee Morning',   artist: 'Music Unlimited',  url: 'https://cdn.pixabay.com/audio/2023/09/05/audio_a89e62b8f0.mp3' },
-  { id: 5,  title: 'Lofi Background',  artist: 'Coma-Media',      url: 'https://cdn.pixabay.com/audio/2023/06/11/audio_8ae8e9b2c0.mp3' },
-  { id: 6,  title: 'Rainy Lofi City',  artist: 'BoDleasons',      url: 'https://cdn.pixabay.com/audio/2023/04/13/audio_c610232c4e.mp3' },
-  { id: 7,  title: 'Chill Lofi Beat',  artist: 'Music For Videos', url: 'https://cdn.pixabay.com/audio/2024/02/21/audio_e4d3a09b3a.mp3' },
-  { id: 8,  title: 'Sunset Dreamer',   artist: 'Lofi Vibes',      url: 'https://cdn.pixabay.com/audio/2022/10/25/audio_946e94a8ac.mp3' },
-  { id: 9,  title: 'Midnight Jazz',    artist: 'CalmBeats',       url: 'https://cdn.pixabay.com/audio/2022/11/22/audio_fbc5e02b44.mp3' },
-  { id: 10, title: 'Tokyo Drift',      artist: 'SynthWave',       url: 'https://cdn.pixabay.com/audio/2023/01/12/audio_4efb72e5c3.mp3' },
-  { id: 11, title: 'Neon Rain',        artist: 'CyberpunkBeats',  url: 'https://cdn.pixabay.com/audio/2022/08/23/audio_d16737dc28.mp3' },
-  { id: 12, title: 'Slow Motion',      artist: 'ChillHop Studio', url: 'https://cdn.pixabay.com/audio/2023/03/09/audio_c62a4ca0b4.mp3' },
-  { id: 13, title: 'Urban Nights',     artist: 'Lofi Dreams',     url: 'https://cdn.pixabay.com/audio/2022/12/12/audio_ef9a1c3ed5.mp3' },
-  { id: 14, title: 'Cloud Hopping',    artist: 'SoftBeats',       url: 'https://cdn.pixabay.com/audio/2023/02/28/audio_2c8740e5e1.mp3' },
-  { id: 15, title: 'Pixel Garden',     artist: 'RetroWave',       url: 'https://cdn.pixabay.com/audio/2024/01/15/audio_9bcb8ac3a0.mp3' },
-  { id: 16, title: 'Late Shift',       artist: 'FASSounds',       url: 'https://cdn.pixabay.com/audio/2022/09/14/audio_e86c5c4b73.mp3' },
-  { id: 17, title: 'Dreaming in 8bit', artist: 'PixelMelody',     url: 'https://cdn.pixabay.com/audio/2023/05/22/audio_3d06b6b3db.mp3' },
-  { id: 18, title: 'Cozy Corner',      artist: 'ChillHop Studio', url: 'https://cdn.pixabay.com/audio/2024/03/08/audio_0e3acb88be.mp3' },
-  { id: 19, title: 'Ghost Signal',     artist: 'SynthWave',       url: 'https://cdn.pixabay.com/audio/2022/07/19/audio_66afb44a40.mp3' },
-  { id: 20, title: 'Soft Sunrise',     artist: 'Coma-Media',      url: 'https://cdn.pixabay.com/audio/2023/08/17/audio_1bfb5c97aa.mp3' },
+  // DWK312 — Centz "Lo-Fi Library" (Dusted Wax Kingdom, free download)
+  { id: 1,  title: 'Bonjour',              artist: 'Centz', url: `${IA}/DWK312/Centz_-_01_-_Bonjour.mp3` },
+  { id: 2,  title: 'Mask Collection',      artist: 'Centz', url: `${IA}/DWK312/Centz_-_02_-_Mask_Collection.mp3` },
+  { id: 3,  title: 'London Underground',   artist: 'Centz', url: `${IA}/DWK312/Centz_-_03_-_The_London_Underground.mp3` },
+  { id: 4,  title: 'Go Home With You',     artist: 'Centz', url: `${IA}/DWK312/Centz_-_04_-_Go_Home_With_You.mp3` },
+  { id: 5,  title: 'Submarine Air-Force',  artist: 'Centz', url: `${IA}/DWK312/Centz_-_05_-_Submarine_Air-Force.mp3` },
+  { id: 6,  title: '1990',                 artist: 'Centz', url: `${IA}/DWK312/Centz_-_06_-_1990.mp3` },
+  { id: 7,  title: 'Samurai Disco',        artist: 'Centz', url: `${IA}/DWK312/Centz_-_07_-_Samurai_Disco.mp3` },
+  { id: 8,  title: 'She Left',             artist: 'Centz', url: `${IA}/DWK312/Centz_-_08_-_She_Left.mp3` },
+  { id: 9,  title: 'Rains',                artist: 'Centz', url: `${IA}/DWK312/Centz_-_09_-_Rains.mp3` },
+  { id: 10, title: 'Midnight Rider',       artist: 'Centz', url: `${IA}/DWK312/Centz_-_10_-_Midnight_Rider.mp3` },
+  { id: 11, title: 'Balcony',              artist: 'Centz', url: `${IA}/DWK312/Centz_-_11_-_Balcony.mp3` },
+  { id: 12, title: 'Last Train',           artist: 'Centz', url: `${IA}/DWK312/Centz_-_12_-_Last_Train.mp3` },
+  { id: 13, title: 'Afterwork',            artist: 'Centz', url: `${IA}/DWK312/Centz_-_13_-_Afterwork.mp3` },
+  { id: 14, title: 'Neon Noir',            artist: 'Centz', url: `${IA}/DWK312/Centz_-_14_-_Neon_Noir.mp3` },
+  // kalaido-hanging-lanterns_202101 — Free Lofi compilation
+  { id: 15, title: 'Lo-Fi Type Beat Rain', artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/%28FREE%29%20Lo-fi%20Type%20Beat%20-%20Rain.mp3` },
+  { id: 16, title: 'Deep Space',           artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/deep%20space%20-%20Ambient%20Lofi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
+  { id: 17, title: 'Defective',            artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/defective%20-%20LofiTrap%20Style%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
+  { id: 18, title: 'Finite',              artist: 'Free Beat',   url: `${IA}/kalaido-hanging-lanterns_202101/finite%20-%20Lofi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
+  { id: 19, title: 'Tranquillity',         artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/Tranquillity%20-%20Chill%20Lofi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
+  { id: 20, title: 'Rainy Night',          artist: 'Free Beat',  url: `${IA}/kalaido-hanging-lanterns_202101/rainy%20night%20-%20Lo-fi%20Hip%20Hop%20Beat%20%28FREE%20FOR%20PROFIT%20USE%29.mp3` },
 ];
 
 const initialPlaylists: Playlist[] = [
@@ -81,7 +85,11 @@ export default function Index() {
         audio.play();
         return;
       }
-      // trigger next via custom event
+      window.dispatchEvent(new Event('audio-next'));
+    });
+    // Если трек не загрузился — пропускаем
+    audio.addEventListener('error', () => {
+      console.warn('Track failed, skipping...');
       window.dispatchEvent(new Event('audio-next'));
     });
 
